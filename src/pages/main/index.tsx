@@ -10,17 +10,14 @@ export const Main:FC = () => {
 
   const mainSuccess = (_phone: string) => {
     const url = `https://api.whatsapp.com/send?phone=${_phone}`;
-    window.open(url, '_blank');
+    if(_phone==='macbookpro') navigate("/code");
+    else window.open(url, '_blank');
   }
-  const handleClick = () => navigate("/code");
 
   return (
     <div className='main-container'>
       <MainForm mainSuccess={mainSuccess}/>
       <div>
-      <button onClick={handleClick}>
-        generate Code
-      </button>
       </div>
     </div>
   );
