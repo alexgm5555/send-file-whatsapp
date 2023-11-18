@@ -21,6 +21,10 @@ const router = createBrowserRouter([
     element: <QrCode />
   },
   {
+    path: '/newclient',
+    element: <QrCode />
+  },
+  {
     path: '/:whatsapp',
     element: <Main />
   },
