@@ -16,7 +16,7 @@ export const MainForm:FC<props> = ({mainSuccess}) => {
   // const [errroMessage, setErrorMessage] = useState('');
   const dispatch =  useDispatch();
   let [searchParams, setSearchParams] = useSearchParams();
-  let [query, setQuery] = useState<any>(
+  let [query] = useState<any>(
     searchParams.get('query')
   );
 
@@ -42,6 +42,7 @@ export const MainForm:FC<props> = ({mainSuccess}) => {
   useEffect(() => {
     setSearchParams({ query });
     if (query !== null) setPhoneNumber(query);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
