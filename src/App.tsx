@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import './App.css';
-import { Main } from './pages';
+import { Main, QrCode } from './pages';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -15,6 +15,10 @@ const router = createBrowserRouter([
   {
     path: '/Main',
     element: <Main />
+  },
+  {
+    path: '/code',
+    element: <QrCode />
   },
   {
     path: '/:whatsapp',
