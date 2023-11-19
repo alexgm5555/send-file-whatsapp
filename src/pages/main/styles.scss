@@ -3,4 +3,12 @@
   align-items: center;
   justify-content: center;
   height: 100%;
+  .QR_LA_Image{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    bottom: 20px;
+    text-align: center;
+  }
 }
