@@ -63,6 +63,7 @@ export const MainForm:FC<props> = ({mainSuccess}) => {
         label='WhatsApp'
         value={phoneNumber}
         autoFocus
+        autoComplete={query}
         onChange={(e)=>handleOnChangeTextField(e, 'phoneNumber')}
         onKeyDown={handleKeyDown}
       />
@@ -77,7 +78,7 @@ export const MainForm:FC<props> = ({mainSuccess}) => {
         variant='contained'
         onClick={handleClick}
         disabled={disableButton}
-      >search</Button>
+      >Enviar</Button>
     </div>
   );
 };
