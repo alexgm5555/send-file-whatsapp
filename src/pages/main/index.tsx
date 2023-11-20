@@ -11,7 +11,7 @@ export const Main:FC = () => {
 
   const mainSuccess = (_phone: string) => {
     const url = `https://api.whatsapp.com/send?phone=${_phone}`;
-    if(_phone ===  process.env.REACT_ROUTE_QR_CODE) navigate("/code");
+    if(_phone ===  process.env.REACT_APP_ROUTE_QR_CODE) navigate("/code");
     else window.open(url, '_blank');
   }
 
