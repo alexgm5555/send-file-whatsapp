@@ -11,7 +11,7 @@ export const QrCode:FC = () => {
   const [showCode, setShowCode] = useState(false);
 
   const mainSuccess = (_phone: string) => {
-    const _url = `https://api.whatsapp.com/send?phone=${_phone}`;
+    const _url = `https://coffee-whatsapp.netlify.app/?query=${_phone}`;
     setUrl(_url);
     setShowCode(true);
   }
