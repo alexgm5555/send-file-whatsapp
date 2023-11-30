@@ -41,7 +41,13 @@ export const MainForm:FC<props> = ({mainSuccess}) => {
 
   useEffect(() => {
     setSearchParams({ query });
-    if (query !== null) setPhoneNumber(query);
+    if (query !== null) {
+      setPhoneNumber(query);
+      setTimeout(function(){
+        const url = `https://api.whatsapp.com/send?phone=57${_phone}`;
+        window.open(url, '_blank');
+      }, 1000);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
