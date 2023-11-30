@@ -19,7 +19,7 @@ export const QrCode:FC = () => {
   return (
     <div className='main-container'>
       <div className='QR_LA_Image'>
-        <img className='img-car' src={`${QR_LA_Image}`} alt="" style="max-height: 40px;" />
+        <img className='img-car' src={`${QR_LA_Image}`} alt=""/>
         <br/>
       </div>
       {!showCode && <MainForm mainSuccess={mainSuccess}/>}
