@@ -21,7 +21,6 @@ export const QrCode:FC = () => {
       <div className='QR_LA_Image'>
         <img className='img-car' src={`${QR_LA_Image}`} alt="" />
         <br/>
-        {_phone}
       </div>
       {!showCode && <MainForm mainSuccess={mainSuccess}/>}
       {showCode && <div style={{ height: "auto", margin: "0 auto", maxWidth: 200, width: "100%" }}>
