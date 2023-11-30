@@ -1,6 +1,6 @@
 import { FC, useState }from 'react';
 import QRCode from "react-qr-code";
-// import { saveAs } from 'file-saver';
+import QR_LA_Image from '../../images/QR_L__A__.png';
 
 import { MainForm } from '../../components';
 
@@ -18,6 +18,11 @@ export const QrCode:FC = () => {
 
   return (
     <div className='main-container'>
+      <div className='QR_LA_Image'>
+        <img className='img-car' src={`${QR_LA_Image}`} alt="" />
+        <br/>
+        {_phone}
+      </div>
       {!showCode && <MainForm mainSuccess={mainSuccess}/>}
       {showCode && <div style={{ height: "auto", margin: "0 auto", maxWidth: 200, width: "100%" }}>
         <QRCode
