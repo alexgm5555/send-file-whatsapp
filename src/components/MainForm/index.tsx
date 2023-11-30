@@ -44,7 +44,7 @@ export const MainForm:FC<props> = ({mainSuccess}) => {
     if (query !== null) {
       setPhoneNumber(query);
       setTimeout(function(){
-        const url = `https://api.whatsapp.com/send?phone=57${_phone}`;
+        const url = `https://api.whatsapp.com/send?phone=57${query}`;
         window.open(url, '_blank');
       }, 1000);
     }
