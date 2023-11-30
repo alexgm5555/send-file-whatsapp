@@ -31,7 +31,9 @@ export const MainForm:FC<props> = ({mainSuccess}) => {
     e: { target: { value: SetStateAction<string> }},
     field: 'phoneNumber'
   )=>{
-    if (field === 'phoneNumber') setPhoneNumber(e.target.value);
+    let _phone: string = e.target.value.toString();
+    _phone =_phone.replaceAll('-','')
+    if (field === 'phoneNumber') setPhoneNumber(_phone);
   }
 
   const handleKeyDown = (e: any) => {
@@ -47,10 +49,16 @@ export const MainForm:FC<props> = ({mainSuccess}) => {
       if(query ===  process.env.REACT_APP_ROUTE_QR_CODE) navigate("/code");
       else {
         setTimeout(function(){
-          const textSend = 'Servicio'
+          const textSend =  '¡Adios%20a%20los%20contactos%20i'+
+                            'nnecesarios!%20En%20https://coff'+
+                            'ee-whatsapp.netlify.app%20,%20pr'+
+                            'iorizamos%20conexiones%20valiosas'+
+                            '.%20Únete%20a%20nosotros%'+
+                            '20y%20enfócate%20en%20conexiones'+
+                            '%20significativas.'
           const url = `https://api.whatsapp.com/send?phone=${query}&text=${textSend}`;
           window.open(url, '_parent');
-        }, 1000);
+        }, 1700);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -73,6 +81,7 @@ export const MainForm:FC<props> = ({mainSuccess}) => {
         id='filte01'
         label='WhatsApp'
         value={phoneNumber}
+        placeholder='311#######'
         autoFocus
         autoComplete={query}
         onChange={(e)=>handleOnChangeTextField(e, 'phoneNumber')}
