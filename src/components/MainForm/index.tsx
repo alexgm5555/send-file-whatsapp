@@ -2,7 +2,7 @@ import { FC, SetStateAction, useEffect, useState }from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import './styles.scss';
 import { addPhone } from '../../redux/userSlice';
@@ -15,6 +15,7 @@ export const MainForm:FC<props> = ({mainSuccess}) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   // const [errroMessage, setErrorMessage] = useState('');
   const dispatch =  useDispatch();
+  let navigate = useNavigate();
   let [searchParams, setSearchParams] = useSearchParams();
   let [query] = useState<any>(
     searchParams.get('query')
@@ -43,10 +44,14 @@ export const MainForm:FC<props> = ({mainSuccess}) => {
     setSearchParams({ query });
     if (query !== null) {
       setPhoneNumber(query);
-      setTimeout(function(){
-        const url = `https://api.whatsapp.com/send?phone=57${query}`;
-        window.open(url, '_blank');
-      }, 1000);
+      if(query ===  process.env.REACT_APP_ROUTE_QR_CODE) navigate("/code");
+      else {
+        setTimeout(function(){
+          const textSend = 'Servicio'
+          const url = `https://api.whatsapp.com/send?phone=${query}&text=${textSend}`;
+          window.open(url, '_parent');
+        }, 1000);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

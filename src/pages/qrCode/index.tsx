@@ -13,17 +13,17 @@ export const QrCode:FC = () => {
 
   const mainSuccess = (_phone: string) => {
     setPhone(_phone);
-    const _url = `https://coffee-whatsapp.netlify.app/?query=${_phone}`;
+    const _url = `https://coffee-whatsapp.netlify.com/?query=${_phone}`;
     setUrl(_url);
     setShowCode(true);
   }
 
   return (
-    <div className='main-container'>
-      <div className='QR_LA_Image'>
+    <div className='qr_code-container '>
+      <div className='ws_image'>
         <img className='img' src={`${QR_LA_Image}`} alt=""/>
-        <br/>
         {phone}
+        <br/>
       </div>
       {!showCode && <MainForm mainSuccess={mainSuccess}/>}
       {showCode && <div style={{ height: "auto", margin: "0 auto", maxWidth: 200, width: "100%" }}>
