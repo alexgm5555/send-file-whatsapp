@@ -9,8 +9,10 @@ import './styles.scss';
 export const QrCode:FC = () => {
   const [url, setUrl] = useState('');
   const [showCode, setShowCode] = useState(false);
+  const [phone, setPhone] = useState('');
 
   const mainSuccess = (_phone: string) => {
+    setPhone(_phone);
     const _url = `https://coffee-whatsapp.netlify.app/?query=${_phone}`;
     setUrl(_url);
     setShowCode(true);
@@ -21,6 +23,7 @@ export const QrCode:FC = () => {
       <div className='QR_LA_Image'>
         <img className='img' src={`${QR_LA_Image}`} alt=""/>
         <br/>
+        {phone}
       </div>
       {!showCode && <MainForm mainSuccess={mainSuccess}/>}
       {showCode && <div style={{ height: "auto", margin: "0 auto", maxWidth: 200, width: "100%" }}>
