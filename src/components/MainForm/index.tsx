@@ -46,7 +46,7 @@ export const MainForm:FC<props> = ({mainSuccess}) => {
         phone: phoneNumber
       }
     });
-    // mainSuccess(phoneNumber);
+    mainSuccess(phoneNumber);
   }
 
   const handleOnChangeTextField = (
