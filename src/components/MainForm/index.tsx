@@ -3,9 +3,11 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useMutation } from '@apollo/client';
 
 import './styles.scss';
 import { addPhone } from '../../redux/userSlice';
+import { CREATE_RECORD } from '../../graphql/mutations';
 
 interface props {
   mainSuccess(e: string): void;
@@ -21,10 +23,30 @@ export const MainForm:FC<props> = ({mainSuccess}) => {
     searchParams.get('query')
   );
 
+
+  const [mutCreateRecord, createRecord] = useMutation(
+    CREATE_RECORD,
+    {
+      errorPolicy: 'all',
+      onError(err) {
+        const error = `${err}`.split(':').reverse()[0];
+        if (error === ' Failed to fetch') {
+          console.log(error);
+        }
+      },
+    },
+  );
+
   const handleClick = () => {
     // setQuery;
     dispatch(addPhone({ phone: phoneNumber}));
-    mainSuccess(phoneNumber);
+
+    mutCreateRecord({
+      variables: {
+        phone: phoneNumber
+      }
+    });
+    // mainSuccess(phoneNumber);
   }
 
   const handleOnChangeTextField = (

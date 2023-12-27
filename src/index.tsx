@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, ReactElement, ReactNode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 
@@ -6,15 +6,35 @@ import {store} from './redux/store';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import client  from '../src/graphql/client';
+import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 
+
+interface PropsAppApollo {
+  children:
+    | JSX.Element
+    | ReactNode
+    | ReactElement
+    | null
+}
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+const AppApollo: FC<PropsAppApollo> = ({ children }: PropsAppApollo) => {
+  return (
+    <ApolloProvider client={client()}>
+      {children}
+    </ApolloProvider>
+  );
+};
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <AppApollo>
+        <App />
+      </AppApollo>
     </Provider>
   </React.StrictMode>
 );
