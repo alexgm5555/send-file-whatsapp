@@ -15,10 +15,9 @@ export const CREATE_RECORD = gql`
   mutation Mutation(
     $createRecordInput: CreateRecordInput!
   ){
-    create(createRecordInput: {
-      phone: $phone,
-      id_role: $id_role,
-    }) {
+    create(
+      createRecordInput: $createRecordInput
+  ) {
       id
       phone
       request_date

@@ -43,8 +43,9 @@ export const MainForm:FC<props> = ({mainSuccess}) => {
 
     mutCreateRecord({
       variables: {
-        phone: phoneNumber,
-        id_role: "001"
+        createRecordInput: {
+          phone: phoneNumber
+        }
       }
     });
     mainSuccess(phoneNumber);
