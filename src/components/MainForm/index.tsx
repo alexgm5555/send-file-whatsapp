@@ -24,7 +24,7 @@ export const MainForm:FC<props> = ({mainSuccess}) => {
   );
 
 
-  const [mutCreateRecord, createRecord] = useMutation(
+  const [mutCreateRecord] = useMutation(
     CREATE_RECORD,
     {
       errorPolicy: 'all',
