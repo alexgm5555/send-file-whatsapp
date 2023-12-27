@@ -68,7 +68,7 @@ export const MainForm:FC<props> = ({mainSuccess}) => {
 
   useEffect(() => {
     setSearchParams({ query });
-    if (query !== null) {
+    if (query !== null && query !== 'null') {
       setPhoneNumber(query);
       if(query ===  process.env.REACT_APP_ROUTE_QR_CODE) navigate("/code");
       else {

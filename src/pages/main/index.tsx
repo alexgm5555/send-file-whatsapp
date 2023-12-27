@@ -9,7 +9,6 @@ export const Main:FC = () => {
   let navigate = useNavigate();
 
   const mainSuccess = (_phone: string) => {
-    console.log('enviado');
     if (process.env.REACT_APP_ENVIROMENT === 'dev') console.log('enviado');
     else {
       const url = `https://api.whatsapp.com/send?phone=57${_phone}`;
