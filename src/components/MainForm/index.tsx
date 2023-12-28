@@ -1,56 +1,62 @@
 import { FC, SetStateAction, useEffect, useState }from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useSearchParams } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { useDispatch } from 'react-redux';
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { useMutation } from '@apollo/client';
 
-import './styles.scss';
+import useCreateRecordMutation from '../../hooks/useCreateRecordMutation';
 import { addPhone } from '../../redux/userSlice';
-import { CREATE_RECORD } from '../../graphql/mutations';
+
+import { contentTextSend } from './content';
+import './styles.scss';
+
 
 interface props {
   mainSuccess(e: string): void;
 }
+/**
+ * Componente principal del formulario.
+ *
+ * @component
+ * @example
+ * <MainForm mainSuccess={handleSuccess} />
+ *
+ * @param {Object} props - Propiedades del componente.
+ * @param {Function} props.mainSuccess - Función para manejar el éxito del formulario.
+ * @returns {JSX.Element} - Elemento JSX que representa el formulario principal.
+ */
 export const MainForm:FC<props> = ({mainSuccess}) => {
   const [disableButton, setDisableButton] = useState<boolean>(true);
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState(useSelector((state: any) => state.user.phone));
   // const [errroMessage, setErrorMessage] = useState('');
-  const dispatch =  useDispatch();
   let navigate = useNavigate();
   let [searchParams, setSearchParams] = useSearchParams();
-  let [query] = useState<any>(
-    searchParams.get('query')
-  );
+  let [query] = useState<any>(searchParams.get('query'));
 
+  const { createRecord } = useCreateRecordMutation();
+  const dispatch =  useDispatch();
+  // const phoneNumber = useSelector(selectPhone);
 
-  const [mutCreateRecord] = useMutation(
-    CREATE_RECORD,
-    {
-      errorPolicy: 'all',
-      onError(err) {
-        const error = `${err}`.split(':').reverse()[0];
-        if (error === ' Failed to fetch') {
-          console.log(error);
-        }
-      },
-    },
-  );
-
+  /**
+   * Maneja el clic en el botón de envío del formulario.
+   *
+   * @function
+   * @returns {void}
+   */
   const handleClick = () => {
-    // setQuery;
     dispatch(addPhone({ phone: phoneNumber}));
-
-    mutCreateRecord({
-      variables: {
-        createRecordInput: {
-          phone: phoneNumber
-        }
-      }
-    });
+    createRecord(phoneNumber);
     mainSuccess(phoneNumber);
   }
 
+  /**
+   * Maneja el cambio en el campo de entrada del número de teléfono.
+   *
+   * @function
+   * @param {Object} e - Evento de cambio.
+   * @param {string} field - Campo afectado ('phoneNumber' en este caso).
+   * @returns {void}
+   */
   const handleOnChangeTextField = (
     e: { target: { value: SetStateAction<string> }},
     field: 'phoneNumber'
@@ -60,7 +66,7 @@ export const MainForm:FC<props> = ({mainSuccess}) => {
     if (field === 'phoneNumber') setPhoneNumber(_phone);
   }
 
-  const handleKeyDown = (e: any) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && disableButton === false) {
       handleClick();
     }
@@ -69,18 +75,11 @@ export const MainForm:FC<props> = ({mainSuccess}) => {
   useEffect(() => {
     setSearchParams({ query });
     if (query !== null && query !== 'null') {
-      setPhoneNumber(query);
+      dispatch(addPhone({ phone: query }));
       if(query ===  process.env.REACT_APP_ROUTE_QR_CODE) navigate("/code");
       else {
         setTimeout(function(){
-          const textSend =  '¡Adios%20a%20los%20contactos%20i'+
-                            'nnecesarios!%20En%20https://coff'+
-                            'ee-whatsapp.netlify.app%20,%20pr'+
-                            'iorizamos%20conexiones%20valiosas'+
-                            '.%20Únete%20a%20nosotros%'+
-                            '20y%20enfócate%20en%20conexiones'+
-                            '%20significativas.'
-          const url = `https://api.whatsapp.com/send?phone=${query}&text=${textSend}`;
+          const url = `https://api.whatsapp.com/send?phone=${query}&text=${contentTextSend}`;
           window.open(url, '_parent');
         }, 1700);
       }
