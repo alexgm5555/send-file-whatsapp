@@ -82,6 +82,7 @@ export const MainForm:FC<props> = ({mainSuccess}) => {
           const url = `https://api.whatsapp.com/send?phone=${query}&text=${contentTextSend}`;
           window.open(url, '_parent');
         }, 1700);
+        createRecord(query);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
